@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achadinhos do Cássio</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background: #ffe600;
+      padding: 22px 7%;
+    }
+    .topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    h1 { margin: 0; color: #222; }
+    header p { margin-bottom: 0; }
+    .busca {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+    }
+    .busca input {
+      flex: 1;
+      padding: 14px;
+      border: 0;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    main {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 18px;
+    }
+    .banner {
+      background: #163b78;
+      color: white;
+      padding: 35px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .banner h2 { font-size: 28px; }
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+      gap: 18px;
+    }
+    .produto {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #00000010;
+    }
+    .produto img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+    }
+    .produto h3 { font-size: 17px; }
+    .preco {
+      font-size: 23px;
+      font-weight: bold;
+      color: #16834a;
+    }
+    .botao {
+      display: block;
+      background: #ffe600;
+      color: #222;
+      text-align: center;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #163b78;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topo">
+      <h1>🛍️ Achadinhos do Cássio</h1>
+      <strong>Ofertas especiais para você!</strong>
+    </div>
+    <div class="busca">
+      <input id="pesquisa" placeholder="O que você está procurando?">
+    </div>
+  </header>
+
+  <main>
+    <section class="banner">
+      <h2>Os melhores achadinhos estão aqui!</h2>
+      <p>Encontre ofertas de produtos selecionados do Mercado Livre.</p>
+    </section>
+
+    <h2>Produtos em destaque</h2>
+    <div class="produtos" id="lista">
+      <article class="produto">
+        <img src="https://placehold.co/300x200?text=Produto+1" alt="Produto exemplo">
+        <h3>Exemplo de produto</h3>
+        <p>Confira esta oferta especial.</p>
+        <p class="preco">Consulte o preço</p>
+        <a class="botao" href="https://www.mercadolivre.com.br/" target="_blank" rel="noopener">COMPRAR</a>
+      </article>
+      <article class="produto">
+        <img src="https://placehold.co/300x200?text=Produto+2" alt="Produto exemplo">
+        <h3>Mais ofertas em breve</h3>
+        <p>Novidades e oportunidades para você.</p>
+        <p class="preco">Consulte o preço</p>
+        <a class="botao" href="https://www.mercadolivre.com.br/" target="_blank" rel="noopener">COMPRAR</a>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    Achadinhos do Cássio © 2026
+    <p>Os produtos são vendidos pelo Mercado Livre.</p>
+  </footer>
+
+  <script>
+    document.getElementById("pesquisa").addEventListener("input", function() {
+      const termo = this.value.toLowerCase();
+      document.querySelectorAll(".produto").forEach(function(produto) {
+        produto.style.display = produto.innerText.toLowerCase().includes(termo)
+          ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
