@@ -3,146 +3,276 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffe600">
-<title>Achadinhos do Cássio | Ofertas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Achadinhos do Cássio</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f5f5f5;color:#333}
-header{background:#ffe600;padding:17px 5%;box-shadow:0 2px 5px #0001}
-.top{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.logo{font-size:23px;font-weight:900;color:#173b70}
-.logo small{display:block;font-size:10px;letter-spacing:2px;color:#333;margin-top:4px}
-.search{display:flex;flex:1;max-width:500px}
-.search input{width:100%;padding:13px;border:1px solid #ddd;border-radius:7px 0 0 7px;font-size:15px;outline:none}
-.search button{border:0;background:#173b70;color:white;padding:0 18px;border-radius:0 7px 7px 0;cursor:pointer}
-nav{background:#fff;padding:13px 5%;border-bottom:1px solid #eee}
-.nav{max-width:1150px;margin:auto;display:flex;gap:25px;flex-wrap:wrap}
-nav a{color:#333;text-decoration:none;font-size:14px;font-weight:bold}
-main{max-width:1150px;margin:25px auto;padding:0 15px}
-.hero{background:linear-gradient(120deg,#173b70,#2862a7);color:white;border-radius:13px;padding:35px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.hero h1{font-size:34px;margin-bottom:12px}
-.hero p{line-height:1.6;color:#e7efff}
-.hero strong{color:#ffe600}
-.hero .tag{background:#ffe600;color:#173b70;padding:12px 18px;border-radius:7px;font-weight:bold;display:inline-block;margin-top:18px}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin:30px 0 17px;gap:10px}
-.section-title h2{font-size:21px;color:#173b70}
-.categories{display:flex;gap:10px;flex-wrap:wrap}
-.category{background:white;border:1px solid #ddd;border-radius:25px;padding:11px 17px;cursor:pointer;font-weight:bold;color:#333}
-.category.active,.category:hover{background:#ffe600;border-color:#ffe600}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-.empty{background:white;border-radius:12px;padding:35px 20px;text-align:center;grid-column:1/-1;border:1px solid #eee}
-.empty .symbol{font-size:42px;margin-bottom:12px}
-.empty h3{color:#173b70;margin-bottom:9px}
-.empty p{color:#777;line-height:1.6;font-size:14px}
-.info{margin-top:30px;background:white;border-radius:12px;padding:23px;line-height:1.8}
-.info h2{color:#173b70;margin-bottom:8px}
-footer{margin-top:35px;background:#173b70;color:white;text-align:center;padding:28px 15px;font-size:13px;line-height:2}
-footer strong{color:#ffe600}
-@media(max-width:600px){
- .hero{padding:25px 20px}
- .hero h1{font-size:27px}
- .top{align-items:stretch}
- .logo{text-align:center}
- .search{max-width:none}
- .nav{gap:15px}
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f5f5f5;color:#333}
+header{background:#ffe600;padding:20px;text-align:center}
+header h1{color:#173b70;margin:0}
+header p{margin:7px}
+main{max-width:1100px;margin:25px auto;padding:15px}
+h2{color:#173b70}
+.panel,.product{background:white;padding:20px;border-radius:12px;margin-bottom:20px}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #ccc;border-radius:7px;font:inherit}
+button,.buy{background:#3483fa;color:white;padding:12px 18px;border:0;border-radius:7px;cursor:pointer;font-weight:bold;text-decoration:none;display:inline-block}
+button:hover,.buy:hover{background:#173b70}
+.secondary{background:#555}
+#admin,#login{display:none}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.product img{width:100%;height:190px;object-fit:contain}
+.product h3{font-size:16px}
+.price{font-size:23px;color:#16833c;font-weight:bold}
+.old{color:#888;text-decoration:line-through}
+.status{padding:10px;color:#173b70}
+footer{text-align:center;background:#173b70;color:white;padding:25px;margin-top:30px}
 </style>
 </head>
 <body>
+
 <header>
- <div class="top">
-  <div class="logo">ACHADINHOS DO CÁSSIO
-   <small>OFERTAS • DESCONTOS • ACHADINHOS</small>
-  </div>
-  <form class="search" id="searchForm">
-   <input id="searchInput" type="search" placeholder="O que você está procurando?">
-   <button type="submit">BUSCAR</button>
-  </form>
- </div>
+<h1>ACHADINHOS DO CÁSSIO 🛍️</h1>
+<p>Ofertas, descontos e produtos selecionados</p>
 </header>
 
-<nav>
- <div class="nav">
-  <a href="#">Início</a>
-  <a href="#categorias">Categorias</a>
-  <a href="#produtos">Ofertas</a>
-  <a href="#sobre">Sobre a loja</a>
- </div>
-</nav>
-
 <main>
- <section class="hero">
-  <div>
-   <h1>Seu próximo achadinho está aqui!</h1>
-   <p>Encontre produtos incríveis e descubra ofertas<br>
-   selecionadas para facilitar seu dia a dia.</p>
-   <span class="tag">CONFIRA NOSSOS ACHADINHOS</span>
-  </div>
-  <div style="font-size:65px">🛍️</div>
- </section>
+<section class="panel">
+<h2>🔥 Nossos achadinhos</h2>
+<p>Confira os produtos selecionados para você.</p>
+<div id="products" class="products">Carregando produtos...</div>
+</section>
 
- <section id="categorias">
-  <div class="section-title"><h2>Explore as categorias</h2></div>
-  <div class="categories">
-   <button class="category active" data-category="Todos">Todos</button>
-   <button class="category" data-category="Eletrônicos">📱 Eletrônicos</button>
-   <button class="category" data-category="Casa">🏠 Casa</button>
-   <button class="category" data-category="Acessórios">⌚ Acessórios</button>
-   <button class="category" data-category="Fitness">💪 Fitness</button>
-   <button class="category" data-category="Beleza">✨ Beleza</button>
-  </div>
- </section>
+<section class="panel" id="login">
+<h2>🔐 Área do administrador</h2>
+<p>Entre para cadastrar seus produtos.</p>
+<form id="loginForm">
+<label>E-mail</label>
+<input id="email" type="email" required>
+<label>Senha</label>
+<input id="password" type="password" required>
+<button type="submit">Entrar</button>
+</form>
+<p id="loginStatus" class="status"></p>
+</section>
 
- <section id="produtos">
-  <div class="section-title">
-   <h2>🔥 Nossos achadinhos</h2>
-   <span style="font-size:12px;color:#777">Novidades em breve</span>
-  </div>
-  <div class="products" id="productList">
-   <div class="empty">
-    <div class="symbol">🛍️</div>
-    <h3>Estamos preparando nossas ofertas!</h3>
-    <p>Em breve você encontrará aqui produtos selecionados<br>
-    com links diretos para comprar no Mercado Livre.</p>
-   </div>
-  </div>
- </section>
+<section class="panel" id="admin">
+<h2>📦 Cadastro de produtos</h2>
+<button id="logout" class="secondary">Sair da administração</button>
 
- <section class="info" id="sobre">
-  <h2>Bem-vindo ao Achadinhos do Cássio!</h2>
-  <p>Nosso objetivo é ajudar você a encontrar produtos e ofertas interessantes em um só lugar.</p>
-  <p>Ao clicar em um produto, você poderá ser direcionado ao site do Mercado Livre para realizar sua compra.</p>
-  <p style="font-size:12px;color:#777;margin-top:10px">
-   Alguns links podem ser de afiliados. Podemos receber comissão por compras qualificadas, sem custo adicional para você.
-  </p>
- </section>
+<form id="productForm">
+<label>Link do anúncio do Mercado Livre</label>
+<input id="productUrl" placeholder="Cole o link completo do anúncio">
+
+<button type="button" id="fetchProduct">✨ Buscar dados automaticamente</button>
+
+<label>Nome do produto</label>
+<input id="name" required>
+
+<label>Preço atual (ex.: 89.90)</label>
+<input id="price" type="number" step="0.01">
+
+<label>Preço antigo (opcional)</label>
+<input id="oldPrice" type="number" step="0.01">
+
+<label>Link da foto</label>
+<input id="image" placeholder="https://...">
+
+<label>Descrição e características</label>
+<textarea id="description" rows="4"></textarea>
+
+<label>Categoria</label>
+<select id="category">
+<option>Eletrônicos</option>
+<option>Casa</option>
+<option>Acessórios</option>
+<option>Fitness</option>
+<option>Beleza</option>
+<option>Outros</option>
+</select>
+
+<label>Seu link de afiliado</label>
+<input id="affiliate" required placeholder="https://meli.la/...">
+
+<button type="submit">Cadastrar produto na loja</button>
+</form>
+<p id="adminStatus" class="status"></p>
+</section>
 </main>
 
 <footer>
- <strong>ACHADINHOS DO CÁSSIO</strong><br>
- Ofertas e achadinhos selecionados para você.<br>
- © 2026 - Todos os direitos reservados.
+<strong>ACHADINHOS DO CÁSSIO</strong>
+<p>Ofertas e achadinhos selecionados para você.</p>
+<p>Alguns links podem gerar comissão sem custo adicional para você.</p>
 </footer>
 
 <script>
-const buttons = document.querySelectorAll('.category');
-const searchInput = document.getElementById('searchInput');
+const SUPABASE_URL = "https://ltdjgkzsbveqgngqcudz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_0BuzxljqvaUqC2g1_7qtDw_Pq-CM6XF";
 
-buttons.forEach(button => {
- button.addEventListener('click', () => {
-  buttons.forEach(item => item.classList.remove('active'));
-  button.classList.add('active');
- });
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const el = id => document.getElementById(id);
+
+function money(value){
+  return Number(value || 0).toLocaleString("pt-BR",{
+    style:"currency",currency:"BRL"
+  });
+}
+
+async function loadProducts(){
+  const area = el("products");
+  const {data,error} = await db.from("produtos")
+    .select("*").order("criado_em",{ascending:false});
+
+  if(error){
+    area.textContent = "Não foi possível carregar os produtos.";
+    return;
+  }
+
+  area.innerHTML = "";
+
+  if(!data || data.length === 0){
+    area.textContent = "Estamos preparando nossas ofertas!";
+    return;
+  }
+
+  data.forEach(p=>{
+    const card = document.createElement("article");
+    card.className = "product";
+
+    const img = document.createElement("img");
+    img.src = p.imagem || "";
+    img.alt = p.nome || "Produto";
+    card.appendChild(img);
+
+    const title = document.createElement("h3");
+    title.textContent = p.nome;
+    card.appendChild(title);
+
+    const category = document.createElement("p");
+    category.textContent = p.categoria || "";
+    card.appendChild(category);
+
+    const old = document.createElement("p");
+    old.className = "old";
+    old.textContent = p.preco_antigo ? money(p.preco_antigo) : "";
+    card.appendChild(old);
+
+    const price = document.createElement("p");
+    price.className = "price";
+    price.textContent = money(p.preco);
+    card.appendChild(price);
+
+    const link = document.createElement("a");
+    link.className = "buy";
+    link.href = p.link_afiliado;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Ver oferta";
+    card.appendChild(link);
+
+    area.appendChild(card);
+  });
+}
+
+function showAdmin(session){
+  el("login").style.display = session ? "none" : "block";
+  el("admin").style.display = session ? "block" : "none";
+}
+
+db.auth.getSession().then(({data})=>{
+  showAdmin(data.session);
 });
 
-document.getElementById('searchForm').addEventListener('submit', event => {
- event.preventDefault();
- const term = searchInput.value.trim();
- if(term){
-  alert('Em breve você poderá pesquisar: ' + term);
- }
+db.auth.onAuthStateChange((_event,session)=>{
+  showAdmin(session);
 });
+
+el("loginForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  el("loginStatus").textContent = "Entrando...";
+
+  const {error} = await db.auth.signInWithPassword({
+    email:el("email").value,
+    password:el("password").value
+  });
+
+  el("loginStatus").textContent = error
+    ? "Não foi possível entrar. Confira e-mail e senha."
+    : "Login realizado!";
+});
+
+el("logout").addEventListener("click",async()=>{
+  await db.auth.signOut();
+});
+
+el("fetchProduct").addEventListener("click",async()=>{
+  const url = el("productUrl").value.trim();
+  const match = url.match(/MLB-?(\d+)/i);
+
+  if(!match){
+    el("adminStatus").textContent =
+      "Não encontrei o código MLB. Use o link completo do anúncio.";
+    return;
+  }
+
+  el("adminStatus").textContent = "Buscando informações...";
+
+  try{
+    const response = await fetch(
+      "https://api.mercadolibre.com/items/MLB" + match[1]
+    );
+
+    if(!response.ok) throw new Error("Consulta indisponível");
+
+    const p = await response.json();
+
+    el("name").value = p.title || "";
+    el("price").value = p.price ?? "";
+    el("oldPrice").value = p.original_price ?? "";
+    el("image").value = p.pictures?.[0]?.secure_url || "";
+
+    el("description").value = (p.attributes || [])
+      .map(a=>a.name + ": " + (a.value_name || ""))
+      .join("\n");
+
+    el("adminStatus").textContent =
+      "Dados encontrados! Confira e complete o link de afiliado.";
+  }catch(error){
+    el("adminStatus").textContent =
+      "Não foi possível buscar automaticamente. Preencha os dados manualmente.";
+  }
+});
+
+el("productForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  el("adminStatus").textContent = "Cadastrando produto...";
+
+  const product = {
+    nome:el("name").value.trim(),
+    preco:el("price").value || null,
+    preco_antigo:el("oldPrice").value || null,
+    imagem:el("image").value.trim() || null,
+    descricao:el("description").value.trim(),
+    link_afiliado:el("affiliate").value.trim(),
+    categoria:el("category").value
+  };
+
+  const {error} = await db.from("produtos").insert(product);
+
+  if(error){
+    el("adminStatus").textContent =
+      "Erro ao cadastrar. Confira seu login e as permissões do banco.";
+    return;
+  }
+
+  el("adminStatus").textContent = "Produto cadastrado com sucesso!";
+  el("productForm").reset();
+  await loadProducts();
+});
+
+loadProducts();
 </script>
 </body>
 </html>
